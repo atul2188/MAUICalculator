@@ -1,0 +1,84 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:MauiCalculator.ViewModel"
+             x:Class="MauiCalculator.MainPage">
+    <ContentPage.BindingContext>
+        <vm:MainPageViewModel/>
+    </ContentPage.BindingContext>
+    <ContentPage.Resources>
+        <Style x:Key="NumberButtonStyle" TargetType="Button">
+            <Setter Property="HorizontalOptions" Value="Fill"/>
+            <Setter Property="VerticalOptions" Value="Fill"/>
+            <Setter Property="BackgroundColor" Value="Gray"/>
+            <Setter Property="TextColor" Value="White"/>
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+        <Style x:Key="OrangeButtonStyle" TargetType="Button">
+            <Setter Property="HorizontalOptions" Value="Fill"/>
+            <Setter Property="VerticalOptions" Value="Fill"/>
+            <Setter Property="BackgroundColor" Value="BlueViolet"/>
+            <Setter Property="TextColor" Value="Orange"/>
+            <Setter Property="FontSize" Value="24"/>
+            <Setter Property="CornerRadius" Value="10"/>
+            <Setter Property="Margin" Value="5"/>
+        </Style>
+    </ContentPage.Resources>
+
+    <Grid RowDefinitions="1*,4*,5*" BackgroundColor="Black">
+        <HorizontalStackLayout Grid.Row="0">
+            <ImageButton Source="historywhite.png" WidthRequest="38" HeightRequest="38"
+                         HorizontalOptions="Start" Margin="10,0,0,0"
+                         Command="{Binding ShowHistoryCommand}"/>
+        </HorizontalStackLayout>
+        <Grid Grid.Row="1" BackgroundColor="Black">
+            <VerticalStackLayout VerticalOptions="End" HorizontalOptions="Fill" Padding="0,0,25,100">
+                <Label Text="{Binding Result}" TextColor="Yellow" FontSize="24" HorizontalOptions="End" 
+                       VerticalOptions="End"/>
+                <Label Text="{Binding Display}" TextColor="White" FontSize="72" HorizontalOptions="End" 
+                       VerticalOptions="End"/>
+                <Line Stroke="White" StrokeThickness="1" StrokeDashArray="2,2" HorizontalOptions="Fill"/>
+            </VerticalStackLayout>
+        </Grid>
+        <Grid Grid.Row="1" BackgroundColor="Black" IsVisible="{Binding IsHistoryVisible}">
+            <ScrollView VerticalOptions="Fill" HorizontalOptions="End">
+                <Label TextColor="Orange" FontSize="24" Text="{Binding History}" VerticalOptions="Fill" HorizontalOptions="End"/>
+            </ScrollView>
+        </Grid>
+        <Border Grid.Row="2" BackgroundColor="Black" Padding="2">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="15,15,15,15"/>
+            </Border.StrokeShape>
+            <Grid RowDefinitions="*,*,*,*,*" ColumnDefinitions="*,*,*,*" BackgroundColor="Transparent">
+                <Button Grid.Row="0" Grid.Column="0" Text="AC" Style="{StaticResource OrangeButtonStyle}" Command="{Binding ClearCommand}"/>
+                <Button Grid.Row="0" Grid.Column="1" Text="⌫" Style="{StaticResource OrangeButtonStyle}" Command="{Binding BackspaceCommand}"/>
+                <Button Grid.Row="0" Grid.Column="2" Text="%" Style="{StaticResource OrangeButtonStyle}" Command="{Binding OperationCommand}" CommandParameter="%"/>
+                <Button Grid.Row="0" Grid.Column="3" Text="/" Style="{StaticResource OrangeButtonStyle}" Command="{Binding OperationCommand}" CommandParameter="/"/>
+                
+                <Button Grid.Row="1" Grid.Column="0" Text="1" Style="{StaticResource NumberButtonStyle}" Command="{Binding NumberCommand}" CommandParameter="1"/>
+                <Button Grid.Row="1" Grid.Column="1" Text="2" Style="{StaticResource NumberButtonStyle}" Command="{Binding NumberCommand}" CommandParameter="2"/>
+                <Button Grid.Row="1" Grid.Column="2" Text="3" Style="{StaticResource NumberButtonStyle}" Command="{Binding NumberCommand}" CommandParameter="3"/>
+                <Button Grid.Row="1" Grid.Column="3" Text="*" Style="{StaticResource OrangeButtonStyle}" Command="{Binding OperationCommand}" CommandParameter="*"/>
+                
+                <Button Grid.Row="2" Grid.Column="0" Text="4" Style="{StaticResource NumberButtonStyle}" Command="{Binding NumberCommand}" CommandParameter="4"/>
+                <Button Grid.Row="2" Grid.Column="1" Text="5" Style="{StaticResource NumberButtonStyle}" Command="{Binding NumberCommand}" CommandParameter="5"/>
+                <Button Grid.Row="2" Grid.Column="2" Text="6" Style="{StaticResource NumberButtonStyle}" Command="{Binding NumberCommand}" CommandParameter="6"/>
+                <Button Grid.Row="2" Grid.Column="3" Text="-" Style="{StaticResource OrangeButtonStyle}" Command="{Binding OperationCommand}" CommandParameter="-"/>
+                
+                <Button Grid.Row="3" Grid.Column="0" Text="7" Style="{StaticResource NumberButtonStyle}" Command="{Binding NumberCommand}" CommandParameter="7"/>
+                <Button Grid.Row="3" Grid.Column="1" Text="8" Style="{StaticResource NumberButtonStyle}" Command="{Binding NumberCommand}" CommandParameter="8"/>
+                <Button Grid.Row="3" Grid.Column="2" Text="9" Style="{StaticResource NumberButtonStyle}" Command="{Binding NumberCommand}" CommandParameter="9"/>
+                <Button Grid.Row="3" Grid.Column="3" Text="+" Style="{StaticResource OrangeButtonStyle}" Command="{Binding OperationCommand}" CommandParameter="+"/>
+                
+                <Button Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Text="0" Style="{StaticResource NumberButtonStyle}" Command="{Binding NumberCommand}" CommandParameter="0"/>
+                <Button Grid.Row="4" Grid.Column="2" Text="." Style="{StaticResource OrangeButtonStyle}" Command="{Binding NumberCommand}" CommandParameter="."/>
+                <Button Grid.Row="4" Grid.Column="3" Text="=" Style="{StaticResource OrangeButtonStyle}" Command="{Binding CalculateCommand}"/>
+
+            </Grid>
+        </Border>
+        
+    </Grid>
+
+</ContentPage>
